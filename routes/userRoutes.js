@@ -1,0 +1,174 @@
+const express = require('express');
+const userController = require('../controllers/userController');
+const advidController = require('../controllers/advidController');
+
+const mmptrackerController = require('../controllers/mmptrackerController');
+const reviewController = require('../controllers/reviewController');
+const paybleeventController = require('../controllers/paybleeventController');
+
+
+const publdController = require('../controllers/publdController');
+
+const advdataController = require('../controllers/advdataController');
+const pubdataController = require('../controllers/pubdataController');
+
+
+
+
+const authMiddleware = require('../middlewares/authMiddleware');
+// const { updateUserImage, upload } = require("../controllers/imgController");
+
+const verifyToken = require('../middlewares/verifyToken'); // Middleware path
+
+
+const router = express.Router();
+
+// admin login, create, combin data 
+router.post('/create-subadmin', userController.createSubAdmin);
+router.post('/login-subadmin', userController.loginSubAdmin);
+router.get('/combin-data/:pid', userController.getCombinedData);
+router.get('/user-data/:userId', userController.getUserData);
+
+
+//for mmp tracker
+router.get('/get-mmptracker', mmptrackerController.getMMPTrackerByUserId);
+router.post('/add-mmptracker', mmptrackerController.createMMPTracker);
+router.post("/update-mmptracker/:id", mmptrackerController.editMMPTracker);
+
+
+router.get('/get-reviews', reviewController.getReviewforall);
+router.post('/add-reviews', reviewController.createReviews);
+router.post("/update-reviews/:id", reviewController.editReviews);
+
+
+router.get('/get-paybleevernt', paybleeventController.getPaybleevent);
+router.post('/add-paybleevernt', paybleeventController.createPayble);
+router.post("/update-event/:id", paybleeventController.editPayble);
+
+
+
+//for adv ids
+router.post('/create-advid', advidController.createAdvertisement);
+ router.get("/advid-data/:user_id", advidController.getAdvertisementsByUserId);
+
+ //for publ ids
+ router.post('/create-pubid', publdController.createPublisher);
+ router.get("/pubid-data/:user_id", publdController.getPublisherByUserId);
+
+ //for adv data
+ router.post('/add-advdata', advdataController.addAdvData);
+ router.get("/get-advdata", advdataController.getAllAdvData); 
+ router.get("/advdata-byuser/:id", advdataController.getAdvDataById);
+ router.post("/advdata-update/:id", advdataController.updateAdvData);
+
+ 
+//for publ data
+ router.post('/add-pubdata', pubdataController.addPubData);
+ router.get("/all-pubdata", pubdataController.getAllPubData); 
+ router.get("/pubdata-byuser/:id", pubdataController.getPubDataByUserId);
+ router.post("/pubdata-update/:id", pubdataController.updatePubData);
+
+ 
+ 
+ 
+
+
+// router.get('/users', userController.getUsers);
+// router.get('/notification/:userId', verifyToken, userController.getNotifications);
+
+// router.get('/getnotifications', userController.addNotification); 
+// //get compains
+// router.get('/get-campains', getCampainController.getCampaigns); 
+// router.get('/get-click', getCampainController.Clicks); 
+// router.get('/track-conversion', getCampainController.trackConversion); 
+
+
+// //coupon feedback
+
+// router.post("/feedback", verifyToken,submitFeedback);
+// router.get("/:id/feedback", getFeedbackStats);
+// router.get("/topStores",getTopStores);
+
+
+
+
+// router.post('/applyCoupon', userController.applyCoupon);
+
+// router.post('/check-user-exist', userController.checkUserExists);  
+// router.post('/signup', userController.signup);
+// router.post('/login', userController.login);  
+// router.post('/login-otp', userController.checkUserExistence);  
+// router.post('/login-otp-exists', userController.checkUserExistenceOTp);  
+
+// router.post('/forget-password', userController.forgotPassword);  
+
+// router.post("/updateimage", upload.single("image"), updateUserImage);
+// router.get("/getimage/:user_id", getCampainController.getUserImage);
+
+
+
+
+
+// // Route to chnage details for a specific user
+// router.get("/users-details/:id",verifyToken, userController.getUsersDetails);
+
+// router.post("/users-change/:userId",verifyToken, userController.changePassword);
+
+// // Route to add subscribe details for user
+// router.post("/subscribe-details",verifyToken, userController.addsubscribeDetails);
+// //add coupons 
+// router.post("/add-coupon", userController.addCouponDetails);
+// // Route to get all coupons
+// router.get("/all-coupon", getAllCoupons);   
+// router.get("/all-couponss/:categoryName", userController.getAllCategoryCoupons);
+// router.get("/get-user-bank/:user_id", getUserFinancialDetails); 
+
+
+// // Route to get a specific coupon by slug
+
+// router.get("/single-coupon/:slug", userController.getCouponBySlug);
+
+
+// // Route to get transection history for a specific user
+// router.get("/tdetails/:userId", userController.getTransactions);
+
+
+// // Route to add upi details
+// router.post("/upi-details", userController.upsertUpiDetails);   
+// // Route to update upi details
+// // router.put("/upi-details/:userId", userController.updateUpiDetails);  
+// // Route to get upi details for a specific user
+// router.get("/upi-details/:userId", userController.getUpiDetails);
+
+
+// // Route to add withdrew details
+// router.post("/add-withdrow-details", userController.createWithdrawal);   
+// router.post("/update-withdrow-details", withdrawController.updateWithdrawalStatus);   
+
+
+
+// router.post("/update-wallet",  userController.updateWallet);
+
+// //route get withdrew details 
+// router.get("/get-withdrow", userController.getAllWithdrawRequests);   
+
+// // Route to add bank details
+// router.post("/bank-details", userController.addBankDetails); 
+
+// // Route to get bank details for a specific user
+// router.get("/bank-details/:userId", userController.getBankDetails);
+
+// // Route to update bank details
+// router.put("/bank-details/:userId", userController.updateBankDetails);
+// //Route to create admin
+// router.post('/create-subadmin', createAdmin);
+
+// router.post('/adminlogin',loginAdmin);
+
+
+// router.post('/register', authMiddleware(['create_admin']), createAdmin);
+// router.post('/login', loginAdmin);
+// router.get('/admins', authMiddleware(['view_admins']), getAllAdmins);
+
+
+module.exports = router;
